@@ -21,17 +21,12 @@
 import griffon.util.GriffonExceptionHandler
 
 includeTargets << griffonScript('_GriffonArgParsing')
+includePluginScript('lang-bridge', '_Commons')
 
 target(name: 'compileScalaCommons', description: "", prehook: null, posthook: null) {
-    depends(parseArguments)
+    depends(parseArguments, compileCommons)
 
-    includePluginScript('lang-bridge', 'CompileCommons')
-    compileCommons()
-
-    ant.path(id: 'scala.compile.classpath') {
-        path(refid: 'griffon.compile.classpath')
-        pathElement(location: projectMainClassesDir)
-    }
+    defineScalaCompilePathAndTask()
 
     def commonsSrc = "${basedir}/src/commons-scala"
     ant.mkdir(dir: commonsSrc)
@@ -79,7 +74,7 @@ target(name: 'compileScalaSrc', description: "", prehook: null, posthook: null) 
             }
         }
     } catch(Exception e) {
-        if(argsMap.verboseCompile) {
+        if(argsMap.compileTrace) {
             GriffonExceptionHandler.sanitize(e)
             e.printStackTrace(System.err)
         }
@@ -106,7 +101,7 @@ target(name: 'compileScalaTest', description: "", prehook: null, posthook: null)
 
     try {
         ant.scalac(destdir: destDir,
-                   classpathref: "scala.test.classpath",
+                   classpathref: "griffon.test.classpath",
                    encoding: scalaSrcEncoding) {
             src(path: scalaTestSrc)
         }
@@ -117,18 +112,24 @@ target(name: 'compileScalaTest', description: "", prehook: null, posthook: null)
 
 target(name: 'defineScalaCompilePathAndTask', description: "", prehook: null, posthook: null) {
     ant.taskdef(resource: 'scala/tools/ant/antlib.xml')
+
+    ant.path(id: 'scala.compile.classpath') {
+        path(refid: 'griffon.compile.classpath')
+        pathElement(location: projectMainClassesDir)
+    }
+
+    if (argsMap.compileTrace) {
+        println('-' * 80)
+        println "[GRIFFON] 'scala.compile.classpath' entries"
+        ant.project.getReference('scala.compile.classpath').list().each {println("  $it")}
+        println('-' * 80)
+    }
 }
 
 target(name: 'defineScalaTestPathAndTask', description: "", prehook: null, posthook: null) {
     defineScalaCompilePathAndTask()
-    ant.path(id: "scala.test.classpath") {
-        path(refid:"griffon.compile.classpath")
-        fileset(dir: "${scalaPluginDir}/lib/test") {
-            include(name: "*.jar")
-        }
-    }
 
     ant.taskdef(name: "scalatest",
-                classpathref: "scala.test.classpath",
+                classpathref: "griffon.test.classpath",
                 classname: "org.scalatest.tools.ScalaTestAntTask")
 }
