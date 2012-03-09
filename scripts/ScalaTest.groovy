@@ -23,8 +23,6 @@ includePluginScript('scala', '_ScalaCommon')
 testReportsDir = griffonSettings.testReportsDir
 
 target(scalaTest: "Run Scala tests") {
-    depends(parseArguments)
-
     def scalaTestSrc = new File("${basedir}/test/scalatest")
     if(!scalaTestSrc.exists() || !scalaTestSrc.list().size()) {
         ant.echo(message: "[scala] No Scala test sources were found.")

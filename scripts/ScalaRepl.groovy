@@ -22,7 +22,7 @@ includeTargets << griffonScript('_GriffonPackage')
 includePluginScript('scala', '_ScalaCommon')
 
 target(scalaRepl: "Run Scala REPL") {
-    depends(checkVersion, configureProxy, packageApp)
+    depends(packageApp)
     
     addUrlIfNotPresent classLoader.parent, projectMainClassesDir
     addUrlIfNotPresent classLoader.parent, resourcesDir

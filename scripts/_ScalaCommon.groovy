@@ -24,7 +24,7 @@ includeTargets << griffonScript('_GriffonArgParsing')
 includePluginScript('lang-bridge', '_Commons')
 
 target(name: 'compileScalaCommons', description: "", prehook: null, posthook: null) {
-    depends(parseArguments, compileCommons)
+    depends(compileCommons)
 
     defineScalaCompilePathAndTask()
 
