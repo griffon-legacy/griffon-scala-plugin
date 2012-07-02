@@ -19,11 +19,11 @@
  */
 class ScalaGriffonPlugin {
     // the plugin version
-    String version = '1.0'
+    String version = '1.0.1'
     // the version or versions of Griffon the plugin is designed for
     String griffonVersion = '1.0.0 > *'
     // the other plugins this plugin depends on
-    Map dependsOn = ['lang-bridge': '0.6']
+    Map dependsOn = ['lang-bridge': '0.6.1']
     // resources that are included in plugin packaging
     List pluginIncludes = []
     // the plugin license

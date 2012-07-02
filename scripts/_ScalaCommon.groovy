@@ -31,7 +31,7 @@ target(name: 'compileScalaCommons', description: "", prehook: null, posthook: nu
     def commonsSrc = "${basedir}/src/commons-scala"
     ant.mkdir(dir: commonsSrc)
     def commonsSrcDir = new File(commonsSrc)
-    compileProjectSources(griffonSettings.baseDir, classesDir, 'scala.compile.classpath') {
+    compileProjectSources(classesDir, 'scala.compile.classpath') {
         src(path: commonsSrcDir)
         javac(classpathref: 'scala.compile.classpath', debug: 'yes')
     }
