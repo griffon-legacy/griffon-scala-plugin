@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2012 the original author or authors.
+ * Copyright 2009-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@
  */
 class ScalaGriffonPlugin {
     // the plugin version
-    String version = '1.0.1'
+    String version = '1.1.0'
     // the version or versions of Griffon the plugin is designed for
-    String griffonVersion = '1.0.0 > *'
+    String griffonVersion = '1.2.0 > *'
     // the other plugins this plugin depends on
     Map dependsOn = ['lang-bridge': '0.6.1']
     // resources that are included in plugin packaging
@@ -49,25 +49,28 @@ class ScalaGriffonPlugin {
     String title = 'Brings the Scala language compiler and libraries'
     // accepts Markdown syntax. See http://daringfireball.net/projects/markdown/ for details
     String description = '''
-The Scala plugin enables compiling and running [Scala]][1] code on your Griffon application. Scala is a statically
-typed language for the JVM that has a great level of interoperability with Java, and so with Groovy too.
+The Scala plugin enables compiling and running [Scala]][1] code on your Griffon
+application. Scala is a statically typed language for the JVM that has a great
+level of interoperability with Java, and so with Groovy too.
 
 Usage
 -----
-You must place all Scala code under `$appdir/src/scala`, it will be compiled first before any sources available on 
-`griffon-app` or `src/main` which means you can't reference any of those sources from your Scala code, while the
-Groovy sources can. However in order to send a message back to the calling code you can create a Scala Trait
-(roughly equivalent to a Java interface) and have a Groovy class implement it. Another alternative would be the
-usage of Structural Types.
+You must place all Scala code under `$appdir/src/scala`, it will be compiled first
+before any sources available on  `griffon-app` or `src/main` which means you can't
+reference any of those sources from your Scala code, while the Groovy sources can.
+However in order to send a message back to the calling code you can create a Scala
+Trait (roughly equivalent to a Java interface) and have a Groovy class implement
+it. Another alternative would be the usage of Structural Types.
 
-Starting with version 0.3 you will be able to use the [LangBridge Plugin][2] facilities to communicate with other JVM languages.
+Starting with version 0.3 you will be able to use the [LangBridge Plugin][2]
+facilities to communicate with other JVM languages.
 
 Configuration
 -------------
-The `BuildConfig.groovy` file in the `griffon-app/conf` folder of your application can be used to configure behavior of the
-scala plugin.
+The `BuildConfig.groovy` file in the `griffon-app/conf` folder of your application
+can be used to configure behavior of the scala plugin.
 
-        scala.src.encoding='UTF-8'  //Scala src file encoding, UTF-8 by default
+    scala.src.encoding='UTF-8'  //Scala src file encoding, UTF-8 by default
 
 The following properties can be configured for `scala-test`
 
@@ -93,8 +96,10 @@ The `scala-test` script supports the following command line flags:
 Scripts
 -------
 
- * **scala-test** - runs Scala tests found in `$basedir/test/scalatest` using Scalatest 1.7.1. Test classes must have Tests as suffix.
- * **scala-repl** - runs a Scala REPL with the application's classpath fully configured.
+ * **scala-test** - runs Scala tests found in `$basedir/test/scalatest` using
+   Scalatest 1.9.1. Test classes must have Tests as suffix.
+ * **scala-repl** - runs a Scala REPL with the application's classpath fully
+   configured.
 
 [1]: http://www.scala-lang.org
 [2]: /plugin/lang-bridge
